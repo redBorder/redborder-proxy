@@ -8,7 +8,7 @@ License: AGPL 3.0
 URL: https://github.com/redBorder/redborder-proxy
 Source0: %{name}-%{version}.tar.gz
 
-Requires: bash ntp dialog dmidecode rsync nc telnet redborder-common redborder-chef-client redborder-cookbooks redborder-rubyrvm
+Requires: bash ntp dialog dmidecode rsync nc telnet redborder-common redborder-chef-client redborder-rubyrvm
 
 %description
 %{summary}

@@ -342,14 +342,14 @@ EOF
             form_data = Struct.new(:label, :ly, :lx, :item, :iy, :ix, :flen, :ilen, :attr)
 
             items = []
-            label = "Cloud address: "
+            label = "Cloud address:"
             data = form_data.new
             data.label = label
             data.ly = 1
             data.lx = 1
             data.item = @conf[label]
             data.iy = 1
-            data.ix = 14
+            data.ix = 16
             data.flen = 253
             data.ilen = 0
             data.attr = 0
