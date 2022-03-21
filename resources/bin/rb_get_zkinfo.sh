@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source /etc/profile
-source $RBLIB/rb_manager_functions.sh
+source $RBLIB/rb_proxy_functions.sh
 
 DIRNAME="/tmp/zkinfo-$$"
 rm -rf $DIRNAME

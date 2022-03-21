@@ -120,10 +120,10 @@ system('yum install systemd -y')
 ###########################
 # configure cloud address #
 ###########################
-# if Config_utils.check_cloud_address(cloud_address)
-#   PROXYOPTS="-i -d -f"
-#   system("/usr/lib/redborder/bin/rb_register_url.sh -s -u #{cloud_address} #{PROXYOPTS}")
-# else
-#   p err_msg = "Invalid cloud address. Please review #{INITCONF} file"
-#   exit 1
-# end
+if Config_utils.check_cloud_address(cloud_address)
+  PROXYOPTS="-i -d -f"
+  system("/usr/lib/redborder/bin/rb_register_url.sh -s -u #{cloud_address} #{PROXYOPTS}")
+else
+  p err_msg = "Invalid cloud address. Please review #{INITCONF} file"
+  exit 1
+end

@@ -3,7 +3,7 @@
 JSON="/var/chef/data/data_bag/passwords/nmspd-key-hashes.json"
 
 source /etc/profile
-source $RBLIB/rb_manager_functions.sh
+source $RBLIB/rb_proxy_functions.sh
 
 FORCE=0
 UPLOAD=0
