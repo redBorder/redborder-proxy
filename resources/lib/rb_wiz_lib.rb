@@ -335,14 +335,14 @@ class CloudAddressConf < WizConf
 
 Please, set cloud address of the redborder manager.
 
-Don't use http:// or https:// in front, introduce just url domain name.
+Don't use http:// or https:// in front, introduce the url domain name of the manager.
 
 EOF
             items = []
             form_data = Struct.new(:label, :ly, :lx, :item, :iy, :ix, :flen, :ilen, :attr)
 
             items = []
-            label = "Cloud address:"
+            label = "Cloud address: "
             data = form_data.new
             data.label = label
             data.ly = 1
