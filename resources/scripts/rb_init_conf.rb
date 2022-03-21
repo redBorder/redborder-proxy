@@ -122,7 +122,7 @@ system('yum install systemd -y')
 ###########################
 if Config_utils.check_cloud_address(cloud_address)
   PROXYOPTS="-i -d -f"
-  system("/usr/lib/redborder/bin/rb_register_url.sh -s -u #{cloud_address} #{PROXYOPTS}")
+  system("/usr/lib/redborder/bin/rb_register_url.sh -u #{cloud_address} #{PROXYOPTS}")
 else
   p err_msg = "Invalid cloud address. Please review #{INITCONF} file"
   exit 1
