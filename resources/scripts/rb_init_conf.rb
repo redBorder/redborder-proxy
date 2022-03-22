@@ -47,7 +47,7 @@ unless network.nil? # network will not be defined in cloud deployments
           exit 1
         end
       end
-      f.puts "SEARCH=#{cdomain}"
+      #f.puts "SEARCH=#{cdomain}" TODO: check if this is needed.
     }
   end
 
