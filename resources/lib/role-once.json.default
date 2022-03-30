@@ -1,0 +1,6 @@
+{
+  "run_list": [ "role[proxy-sensor]" ],
+  "redBorder": {
+    "force-run-once": true
+  }
+}

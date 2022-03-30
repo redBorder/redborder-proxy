@@ -25,10 +25,12 @@ mkdir -p %{buildroot}/usr/lib/redborder/scripts
 mkdir -p %{buildroot}/usr/lib/redborder/lib
 mkdir -p %{buildroot}/etc/profile.d
 mkdir -p %{buildroot}/var/chef/cookbooks
+mkdir -p %{buildroot}/etc/chef/
 install -D -m 0644 resources/redborder-proxy.sh %{buildroot}/etc/profile.d
 install -D -m 0644 resources/dialogrc %{buildroot}/etc/redborder
 cp resources/bin/* %{buildroot}/usr/lib/redborder/bin
 cp resources/scripts/* %{buildroot}/usr/lib/redborder/scripts
+cp -r resources/chef/ %{buildroot}/etc/
 chmod 0755 %{buildroot}/usr/lib/redborder/bin/*
 chmod 0755 %{buildroot}/usr/lib/redborder/scripts/*
 install -D -m 0644 resources/lib/rb_wiz_lib.rb %{buildroot}/usr/lib/redborder/lib
@@ -50,11 +52,12 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 /etc/profile.d/redborder-proxy.sh
 /usr/lib/redborder/lib/dhclient-enter-hooks
 %defattr(0644,root,root)
+/etc/chef
 /etc/redborder
-/usr/lib/systemd/system/rb-init-conf.service
 /usr/lib/redborder/lib/rb_wiz_lib.rb
 /usr/lib/redborder/lib/rb_config_utils.rb
 /usr/lib/redborder/lib/rb_proxy_functions.sh
+/usr/lib/systemd/system/rb-init-conf.service
 %doc
 
 %changelog
