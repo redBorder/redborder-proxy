@@ -32,10 +32,10 @@ fi
 if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   e_title "Stopping services"
   /usr/lib/redborder/bin/rb_clean_zookeeper.sh -kfl
-  #red zookeeper clean -k -f
+ 
 
   e_title "Stopping services"
-  #rb_service stop
+
   ds_services_stop="chef-client f2k n2klocd redborder-monitor"
   systemctl stop $ds_services_stop
 
@@ -55,14 +55,12 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   /usr/lib/redborder/bin/rb_clean_nmsp.sh -f
 
   e_title "Starting registration daemons"
-  #service rb-register start
 
   rm /etc/sysconfig/rb-register
   cp /etc/sysconfig/rb-register.default /etc/sysconfig/rb-register
  
   echo HASH=\"$(cat /etc/rb-uuid)\" >> /etc/sysconfig/rb-register 
   systemctl start rb-register
-  #service rb-exporter start
 fi
 
 exit $RET
