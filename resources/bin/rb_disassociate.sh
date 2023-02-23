@@ -32,10 +32,6 @@ fi
 if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   e_title "Stopping services"
   /usr/lib/redborder/bin/rb_clean_zookeeper.sh -kfl
- 
-
-  e_title "Stopping services"
-
   ds_services_stop="chef-client f2k n2klocd redborder-monitor"
   systemctl stop $ds_services_stop
 
@@ -49,19 +45,18 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
 
   e_title "Generating new uuid"
   cat /proc/sys/kernel/random/uuid > /etc/rb-uuid
-  #rb_reset_motd
 
   e_title "Generating new nmsp certs"
   /usr/lib/redborder/bin/rb_clean_nmsp.sh -f
 
   e_title "Starting registration daemons"
-
   rm /etc/sysconfig/rb-register
   cp /etc/sysconfig/rb-register.default /etc/sysconfig/rb-register
- 
+
+  e_title "Pushing hash from rb-uuid to rb-register"
   echo HASH=\"$(cat /etc/rb-uuid)\" >> /etc/sysconfig/rb-register 
-  systemctl start rb-register
+
+  e_title "Disassociate finished. Please use rb_setup_wizard to register this machine again"
 fi
 
 exit $RET
-
