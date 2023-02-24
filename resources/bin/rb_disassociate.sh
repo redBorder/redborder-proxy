@@ -32,7 +32,7 @@ fi
 if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   e_title "Stopping services"
   /usr/lib/redborder/bin/rb_clean_zookeeper.sh -kfl
-  ds_services_stop="chef-client f2k n2klocd redborder-monitor"
+  ds_services_stop="chef-client f2k n2klocd redborder-monitor rb-register" #rb-register should be restarted on rb_setup_wizard
   systemctl stop $ds_services_stop
 
   e_title "Deleting files"
