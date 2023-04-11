@@ -44,6 +44,7 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   touch /etc/force_create_topics
 
   e_title "Generating new uuid"
+  sqlite3 /etc/rb-register.db "DROP TABLE IF EXISTS Devices;"
   cat /proc/sys/kernel/random/uuid > /etc/rb-uuid
 
   e_title "Generating new nmsp certs"
@@ -55,6 +56,11 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
 
   e_title "Pushing hash from rb-uuid to rb-register"
   echo HASH=\"$(cat /etc/rb-uuid)\" >> /etc/sysconfig/rb-register 
+
+  #In order to enable the asossiation of the proxy again
+  e_title "Restarting Network configuration
+  rm /etc/redborder/rb_init_conf.yml /etc/sysconfig/network
+  systemctl start NetworkManager
 
   e_title "Disassociate finished. Please use rb_setup_wizard to register this machine again"
 fi
