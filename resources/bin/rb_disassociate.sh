@@ -44,7 +44,7 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   touch /etc/force_create_topics
 
   e_title "Generating new uuid"
-  sqlite3 /etc/rb-register.db "DELETE FROM Devices IF EXISTS Devices;"
+  sqlite3 /etc/rb-register.db "DELETE FROM Devices;"
   cat /proc/sys/kernel/random/uuid > /etc/rb-uuid
 
   e_title "Generating new nmsp certs"
