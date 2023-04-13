@@ -60,7 +60,6 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   #In order to enable the asossiation of the proxy again
   e_title "Restarting Network configuration"
   > "/etc/sysconfig/network"  #empty file
-  systemctl start NetworkManager
 
   e_title "Disassociate finished. Please use rb_setup_wizard to register this machine again"
 fi
