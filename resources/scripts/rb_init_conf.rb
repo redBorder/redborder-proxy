@@ -26,7 +26,7 @@ network = init_conf['network']
 
 # Create file with bash env variables
 open("/etc/redborder/rb_init_conf.conf", "w") { |f|
-  f.puts "#REBORDER ENV VARIABLES"
+  f.puts "#REDBORDER ENV VARIABLES"
 }
 
 unless network.nil? # network will not be defined in cloud deployments
