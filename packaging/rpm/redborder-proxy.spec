@@ -61,5 +61,7 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 %doc
 
 %changelog
+* Thu Apr 13 2023 Luis Blanco <ljblanco@redborder.com> -
+- disassociate added
 * Mon Mar 21 2021 Miguel Negron <manegron@redborder.com> - 0.0.1-1
 - first spec version

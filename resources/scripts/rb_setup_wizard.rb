@@ -63,9 +63,7 @@ dialog.clear = true
 dialog.title = "Configure wizard"
 yesno = dialog.yesno(text,0,0)
 
-unless yesno # yesno is "yes" -> true
-    cancel_wizard
-end
+cancel_wizard unless yesno # yesno is "yes" -> true
 
 text = <<EOF
 
@@ -85,7 +83,6 @@ dialog.no_label = "SKIP"
 yesno = dialog.yesno(text,0,0)
 
 if yesno # yesno is "yes" -> true
-
     # Conf for network
     netconf = NetConf.new
     netconf.doit # launch wizard
@@ -132,6 +129,7 @@ You have selected the following parameter values for your configuration:
 
 EOF
 
+#Get interfaces info
 unless general_conf["network"]["interfaces"].empty?
     text += "- Networking:\n"
     general_conf["network"]["interfaces"].each do |i|
@@ -148,6 +146,7 @@ unless general_conf["network"]["interfaces"].empty?
     end
 end
 
+#Get DNS info
 unless general_conf["network"]["dns"].nil?
     text += "- DNS:\n"
     general_conf["network"]["dns"].each do |dns|
@@ -164,9 +163,7 @@ dialog.clear = true
 dialog.title = "Confirm configuration"
 yesno = dialog.yesno(text,0,0)
 
-unless yesno # yesno is "yes" -> true
-    cancel_wizard
-end
+cancel_wizard unless yesno # yesno is "yes" -> true
 
 File.open(CONFFILE, 'w') {|f| f.write general_conf.to_yaml } #Store
 
@@ -177,5 +174,3 @@ dialog = MRDialog.new
 dialog.clear = false
 dialog.title = "Applying configuration"
 dialog.prgbox(command,20,100, "Executing rb_init_conf")
-
-## vim:ts=4:sw=4:expandtab:ai:nowrap:formatoptions=croqln:
