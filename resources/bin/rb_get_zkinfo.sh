@@ -7,16 +7,16 @@ DIRNAME="/tmp/zkinfo-$$"
 rm -rf $DIRNAME
 mkdir -p $DIRNAME
 
-ZK_HOST=$(/usr/lib/redborder/bin/rb_node_services -n zookeeper)
+ZK_HOST=zookeeper.service
 
-OIFS=$IFS
-IFS=','
+#OIFS=$IFS
+#IFS=','
 for n in ${ZK_HOST}; do
     host=$n
     port="2181"
-    echo mntr | nc $host.node $port | awk '{printf("%-30s %-20s\n", $1, $2)}' >${DIRNAME}/${host}.node-${port}.conf
+    echo mntr | nc $host $port | awk '{printf("%-30s %-20s\n", $1, $2)}' >${DIRNAME}/${host}-${port}.conf
 done
-IFS=$OIFS
+#IFS=$OIFS
 
 zk_files=$(ls $DIRNAME/*.conf 2>/dev/null | wc -w)
 
