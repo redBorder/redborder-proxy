@@ -11,6 +11,7 @@ URL: https://github.com/redBorder/redborder-proxy
 Source0: %{name}-%{version}.tar.gz
 
 Requires: bash ntp dialog dmidecode rsync nc telnet redborder-common redborder-chef-client redborder-rubyrvm redborder-cli rb-register
+Requires: alternatives java-1.8.0-openjdk java-1.8.0-openjdk-devel
 
 %description
 %{summary}
@@ -45,6 +46,9 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 
 %post
 /usr/lib/redborder/bin/rb_rubywrapper.sh -c
+
+%posttrans
+update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "java"|head -n 1)
 
 %files
 %defattr(0755,root,root)
