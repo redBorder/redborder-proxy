@@ -85,7 +85,8 @@ end
 ####################
 
 system("timedatectl set-timezone UTC")
-system("ntpdate pool.ntp.org")
+# TODO
+#system("ntpdate pool.ntp.org")
 
 
 #Firewall rules
