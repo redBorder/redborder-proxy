@@ -13,6 +13,7 @@ Source0: %{name}-%{version}.tar.gz
 Requires: bash dialog dmidecode rsync nc telnet redborder-common redborder-chef-client redborder-rubyrvm redborder-cli rb-register
 Requires: alternatives java-1.8.0-openjdk java-1.8.0-openjdk-devel
 Requires: network-scripts network-scripts-teamd
+Requires: chef-workstation
 
 %description
 %{summary}
