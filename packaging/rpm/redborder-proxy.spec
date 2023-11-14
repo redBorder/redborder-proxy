@@ -69,6 +69,8 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
+* Tue Nov 14 2023 Miguel Negron <manegron@redborder.com> - 0.0.8-1
+- add networkscripts
 * Wed Sep 13 2023 Julio Peralta <jperalta@redborder.com> - 0.0.7-1
 - Changed ZK_host, removed IF="," and ".node" inside rb_get_zkinfo.sh
 * Thu Apr 13 2023 Luis Blanco <ljblanco@redborder.com> -
