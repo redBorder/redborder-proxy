@@ -84,6 +84,11 @@ end
 
 # TODO: check network connectivity. Try to resolve repo.redborder.com
 
+##############################
+# Accept chef-client license #
+##############################
+system('chef-client --chef-license accept &>/dev/null')
+
 ####################
 # Set UTC timezone #
 ####################
