@@ -35,6 +35,10 @@ unless network.nil? # network will not be defined in cloud deployments
   system('systemctl disable NetworkManager &> /dev/null')
   system('systemctl stop NetworkManager &> /dev/null')
 
+  # Enable network service
+  system('systemctl enable network &> /dev/null')
+  system('systemctl start network &> /dev/null')
+
   # Configure DNS
   unless network['dns'].nil?
     dns = network['dns']
@@ -79,6 +83,11 @@ unless network.nil? # network will not be defined in cloud deployments
 end
 
 # TODO: check network connectivity. Try to resolve repo.redborder.com
+
+##############################
+# Accept chef-client license #
+##############################
+system('chef-client --chef-license accept &>/dev/null')
 
 ####################
 # Set UTC timezone #
