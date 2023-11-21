@@ -69,6 +69,8 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
+* Tue Nov 21 2023 Vicente Mesa <vimesa@redborder.com> - 0.0.9-1
+- Add dhclient
 * Tue Nov 14 2023 Miguel Negron <manegron@redborder.com> - 0.0.8-1
 - add networkscripts
 * Wed Sep 13 2023 Julio Peralta <jperalta@redborder.com> - 0.0.7-1
