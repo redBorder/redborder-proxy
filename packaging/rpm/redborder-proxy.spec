@@ -14,6 +14,7 @@ Requires: bash dialog dmidecode rsync nc telnet redborder-common redborder-chef-
 Requires: alternatives java-1.8.0-openjdk java-1.8.0-openjdk-devel
 Requires: network-scripts network-scripts-teamd
 Requires: chef-workstation
+Requires: redborder-cgroups
 
 %description
 %{summary}
