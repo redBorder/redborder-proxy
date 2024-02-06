@@ -18,7 +18,9 @@ def cancel_wizard()
     dialog.title = "SETUP wizard cancelled"
     text = <<EOF
 The setup has been cancelled or stopped.
+
 If you want to complete the setup wizard, please execute it again.
+
 EOF
     result = dialog.msgbox(text, 11, 41)
     exit(1)
@@ -31,19 +33,24 @@ general_conf = {
     "network" => {
         "interfaces" => [],
         "dns" => []
+        }
     }
-}
 
 # general_conf will dump its contents as yaml conf into rb_init_conf.yml
+
+# TODO: intro to the wizard, define color set, etc.
 
 text = <<EOF
 This wizard will guide you through the necessary configuration of the device
 in order to convert it into a redborder node within a redborder cluster.
+
 It will go through the following required steps: network configuration,
 configuration of hostname, domain and DNS, Serf configuration, and finally
 the node mode (the mode determines the minimum group of services that make up
 the node, giving it more or less weight within the cluster).
+
 Would you like to continue?
+
 EOF
 
 dialog = MRDialog.new
@@ -57,7 +64,9 @@ text = <<EOF
 Next, you will be able to configure network settings. If you have
 the network configured manually, you can "SKIP" this step and go
 to the next step.
+
 Please, Select an option.
+
 EOF
 
 dialog = MRDialog.new
@@ -107,10 +116,13 @@ end
 
     # Conf for DNS
     text = <<EOF
+
 Do you want to configure DNS servers?
+
 If you have configured the network as Dynamic and
 you get the DNS servers via DHCP, you should say
 'No' to this question.
+
 EOF
 
     dialog = MRDialog.new
