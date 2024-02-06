@@ -74,9 +74,19 @@ if yesno # yesno is "yes" -> true
     cancel_wizard if netconf.cancel
     general_conf["network"]["interfaces"] = netconf.conf
 
-    # AQUÍ INICIA EL NUEVO CÓDIGO PARA SELECCIONAR LA INTERFAZ DE GESTIÓN
     if general_conf["network"]["interfaces"].size > 1
-        interface_options = general_conf["network"]["interfaces"].map { |i| i["device"] }
+        static_interface = general_conf["network"]["interfaces"].find { |i| i["mode"] == "static" }
+        dhcp_interfaces = general_conf["network"]["interfaces"].select { |i| i["mode"] == "dhcp" }
+
+        #If there is exactly one Static interface and one or more DHCP interfaces, the Static one is automatically chosen.
+        # This block would not execute if there is more than one Static interface.
+        if static_interface && dhcp_interfaces.size >= 1
+            general_conf["network"]["management_interface"] = static_interface["device"]
+        else
+        # This block executes if the above condition is not met,
+        # such as when there are multiple Static interfaces (and/or DHCP).
+        # The user is given the option to choose
+        interface_options = general_conf["network"]["interfaces"].map { |i| [i["device"]] }
         text = <<EOF
 You have multiple network interfaces configured.
 Please select one to be used as the management interface.
@@ -84,7 +94,7 @@ EOF
         dialog = MRDialog.new
         dialog.clear = true
         dialog.title = "Select Management Interface"
-        management_iface = dialog.menu(text, interface_options, 0, 0)
+        management_iface = dialog.menu("Choose an interface:", interface_options, 10, 50)
 
         if management_iface.nil? || management_iface.empty?
             cancel_wizard
@@ -92,7 +102,8 @@ EOF
             general_conf["network"]["management_interface"] = management_iface
         end
     end
-    # AQUÍ TERMINA EL NUEVO CÓDIGO
+end
+
 
     # Conf for DNS
     text = <<EOF

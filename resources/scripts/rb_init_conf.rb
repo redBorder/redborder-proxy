@@ -24,6 +24,8 @@ cloud_address = init_conf['cloud_address']
 
 network = init_conf['network']
 
+management_interface = init_conf['network']['management_interface'] if init_conf['network'] && init_conf['network']['management_interface']
+
 # Create file with bash env variables
 open("/etc/redborder/rb_init_conf.conf", "w") { |f|
   f.puts "#REDBORDER ENV VARIABLES"
