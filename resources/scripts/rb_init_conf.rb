@@ -74,7 +74,7 @@ unless network.nil? # network will not be defined in cloud deployments
           f.puts "IPADDR=#{iface['ip']}" if iface['ip']
           f.puts "NETMASK=#{iface['netmask']}" if iface['netmask']
           f.puts "GATEWAY=#{iface['gateway']}" if iface['gateway']
-          if dev == management_interface
+          if dev == management_interface || management_interface.nil?
             f.puts "DEFROUTE=yes"
           else
             f.puts "DEFROUTE=no"
