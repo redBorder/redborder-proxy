@@ -70,6 +70,8 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
+* Fri May 17 2024 Luis Blanco <ljblanco@redborder.com> - 0.2.0-1
+- Integrate redborder-ale
 * Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
 - Add cgroups
 * Tue Nov 21 2023 Vicente Mesa <vimesa@redborder.com> - 0.0.9-1
