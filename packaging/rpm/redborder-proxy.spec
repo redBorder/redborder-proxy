@@ -49,6 +49,9 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 
 %post
 /usr/lib/redborder/bin/rb_rubywrapper.sh -c
+# adjust kernel printk settings for the console
+echo "kernel.printk = 1 4 1 7" > /usr/lib/sysctl.d/99-redborder-printk.conf
+/sbin/sysctl --system > /dev/null 2>&1
 
 %posttrans
 update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "java"|head -n 1)
