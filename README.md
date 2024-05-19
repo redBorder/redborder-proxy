@@ -1,14 +1,14 @@
 # redborder-proxy Main package
  
-Main package to install redborder proxy in Centos7
+Main package to install redborder proxy in Rocky Linux 9
 
 #### Platforms
 
-- Centos 7
+- Rocky Linux 9
 
-#### Installation
+#### Installation
 
-1. yum install epel-release && rpm -ivh http://repo.redborder.com/redborder-repo-0.0.3-1.el7.rb.noarch.rpm
+1. Install the redborder repo following the steps described in https://repo.redborder.com 
 
 2. yum install redborder-proxy
 
