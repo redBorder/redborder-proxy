@@ -67,7 +67,7 @@ unless network.nil? # network will not be defined in cloud deployments
       f.puts "ONBOOT=yes"
       dev_uuid = File.read("/proc/sys/kernel/random/uuid").chomp
       f.puts "UUID=#{dev_uuid}"
-      
+
       if iface_mode != 'dhcp'
         # Specific handling for static and management interfaces
         if dev == management_interface || Config_utils.check_ipv4(ip: iface['ip'], netmask: iface['netmask'], gateway: iface['gateway'])
@@ -113,6 +113,9 @@ system("timedatectl set-timezone UTC")
 
 #Firewall rules
 if !network.nil? #Firewall rules are not needed in cloud environments
+  #snmp
+  system("firewall-cmd --permanent --zone=public --add-port=161/udp &>/dev/null")
+  system("firewall-cmd --permanent --zone=public --add-port=162/udp &>/dev/null")
 
   #f2k
   system("firewall-cmd --permanent --zone=public --add-port=2055/udp &>/dev/null")
@@ -131,7 +134,7 @@ if !network.nil? #Firewall rules are not needed in cloud environments
   system("firewall-cmd --permanent --zone=public --add-port=2056/tcp &>/dev/null")
   system("firewall-cmd --permanent --zone=public --add-port=2057/tcp &>/dev/null")
   system("firewall-cmd --permanent --zone=public --add-port=2058/tcp &>/dev/null")
- 
+
   # Reload firewalld configuration
   system("firewall-cmd --reload &>/dev/null")
 
