@@ -44,6 +44,8 @@ install -D -m 0644 resources/lib/rb_config_utils.rb %{buildroot}/usr/lib/redbord
 install -D -m 0644 resources/lib/rb_functions.sh %{buildroot}/usr/lib/redborder/lib
 install -D -m 0644 resources/systemd/rb-init-conf.service %{buildroot}/usr/lib/systemd/system/rb-init-conf.service
 install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redborder/lib/dhclient-enter-hooks
+cp -r resources/etc/chef/rb_fix_chef_client_upgrade.sh %{buildroot}/var/chef/
+chmod 0755 %{buildroot}/var/chef/rb_fix_chef_client_upgrade.sh
 
 %pre
 
@@ -52,6 +54,7 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 # adjust kernel printk settings for the console
 echo "kernel.printk = 1 4 1 7" > /usr/lib/sysctl.d/99-redborder-printk.conf
 /sbin/sysctl --system > /dev/null 2>&1
+/var/chef/rb_fix_chef_client_upgrade.sh
 
 %posttrans
 update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "java"|head -n 1)
@@ -60,6 +63,7 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %defattr(0755,root,root)
 /usr/lib/redborder/bin
 /usr/lib/redborder/scripts
+/var/chef/rb_fix_chef_client_upgrade.sh
 %defattr(0755,root,root)
 /etc/profile.d/redborder-proxy.sh
 /usr/lib/redborder/lib/dhclient-enter-hooks
@@ -73,6 +77,8 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
+* Tue Feb 25 2025 Vicente Mesa <vimesa@redborder.com> - 
+- Update chef-workstation
 * Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
 - Add cgroups
 * Tue Nov 21 2023 Vicente Mesa <vimesa@redborder.com> - 0.0.9-1
