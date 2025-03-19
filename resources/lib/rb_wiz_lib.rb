@@ -76,7 +76,7 @@ EOF
                 data.tag = netdev
                 # set default value
                 @confdev[netdev] = {"mode" => "dhcp"} if @confdev[netdev].nil?
-                data.item = "MAC: "+netdevprop["MAC"]+", Vendor: "+netdevprop["ID_MODEL_FROM_DATABASE"]
+                data.item = "MAC: #{netdevprop["MAC"]}, Vendor: #{netdevprop["ID_MODEL_FROM_DATABASE"]}"
                 items.push(data.to_a)
             end
             data.tag = "Finalize"
@@ -326,7 +326,7 @@ class CloudAddressConf < WizConf
 
         host = {}
         @conf["Cloud address:"] = "rblive.redborder.com"
-        
+
         loop do
             dialog = MRDialog.new
             dialog.clear = true
