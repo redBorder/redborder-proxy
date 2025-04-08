@@ -21,6 +21,7 @@ INITCONF="#{RBETC}/rb_init_conf.yml"
 init_conf = YAML.load_file(INITCONF)
 
 cloud_address = init_conf['cloud_address']
+cdomain = init_conf['cdomain']
 
 network = init_conf['network']
 
@@ -30,6 +31,9 @@ management_interface = init_conf['network']['management_interface'] if init_conf
 open("/etc/redborder/rb_init_conf.conf", "w") { |f|
   f.puts "#REDBORDER ENV VARIABLES"
 }
+
+# Set cdomain file
+File.open("/etc/redborder/cdomain", "w") { |f| f.puts "#{cdomain}" }
 
 unless network.nil? # network will not be defined in cloud deployments
 
@@ -118,7 +122,7 @@ system('yum install systemd -y')
 ###########################
 if Config_utils.check_cloud_address(cloud_address)
   PROXYOPTS="-i -d -f"
-  system("/usr/lib/redborder/bin/rb_register_url.sh -u #{cloud_address} #{PROXYOPTS}")
+  system("/usr/lib/redborder/bin/rb_register_url.sh -u #{cloud_address} -c #{cdomain} #{PROXYOPTS}")
 else
   p err_msg = "Invalid cloud address. Please review #{INITCONF} file"
   exit 1
