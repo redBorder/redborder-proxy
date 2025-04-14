@@ -48,27 +48,6 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 %pre
 
 %post
-case "$1" in
-  1)
-    # This is an initial install.
-    :
-  ;;
-  2)
-    # This is an upgrade.
-    CDOMAIN_FILE="/etc/redborder/cdomain"
-
-    if [ -f "$CDOMAIN_FILE" ]; then
-      SUFFIX=$(cat "$CDOMAIN_FILE")
-    else
-      SUFFIX="redborder.cluster"
-    fi
-
-    NEW_DOMAIN="http2k.${SUFFIX}"
-
-    sed -i -E "s/\bhttp2k\.service\b/${NEW_DOMAIN}/" /etc/hosts
-  ;;
-esac
-
 /usr/lib/redborder/bin/rb_rubywrapper.sh -c
 # adjust kernel printk settings for the console
 echo "kernel.printk = 1 4 1 7" > /usr/lib/sysctl.d/99-redborder-printk.conf
@@ -94,8 +73,6 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
-* Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com> - 0.4.2-1
-- Add domain configuration update during package upgrade for http2k
 * Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
 - Add cgroups
 * Tue Nov 21 2023 Vicente Mesa <vimesa@redborder.com> - 0.0.9-1

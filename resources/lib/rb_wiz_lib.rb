@@ -326,7 +326,6 @@ class CloudAddressConf < WizConf
 
         host = {}
         @conf["Cloud address:"] = "rblive.redborder.com"
-        @conf["Domain name:"] = "redborder.cluster"
 
         loop do
             dialog = MRDialog.new
@@ -356,19 +355,6 @@ EOF
             data.attr = 0
             items.push(data.to_a)
 
-            label = "Domain name:"
-            data = form_data.new
-            data.label = label
-            data.ly = 2
-            data.lx = 1
-            data.item = @conf[label]
-            data.iy = 2
-            data.ix = 16
-            data.flen = 253
-            data.ilen = 0
-            data.attr = 0
-            items.push(data.to_a)
-
             dialog.title = "Cloud address configuration"
             host = dialog.mixedform(text, items, 24, 60, 0)
 
@@ -377,9 +363,9 @@ EOF
                 @cancel = true
                 break
             else
-                if Config_utils.check_cloud_address(host["Cloud address:"]) and Config_utils.check_domain(host["Domain name:"])
+                if Config_utils.check_cloud_address(host["Cloud address:"])
                     # need to confirm lenght
-                    if (host["Cloud address:"].length < 254 and host["Domain name:"].length < 254)
+                    if (host["Cloud address:"].length < 254)
                         break
                     end
                 end
@@ -400,7 +386,6 @@ EOF
         end
 
         @conf[:cloud_address] = host["Cloud address:"]
-        @conf[:cdomain] = host["Domain name:"]
 
     end
 
