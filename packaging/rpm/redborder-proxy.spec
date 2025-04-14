@@ -94,7 +94,7 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
-* Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com> - 0.4.2-1
+* Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com> - 0.5.0-1
 - Add domain configuration update during package upgrade for http2k
 * Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
 - Add cgroups
