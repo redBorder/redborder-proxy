@@ -146,7 +146,6 @@ cloud_address_conf = CloudAddressConf.new
 cloud_address_conf.doit # launch wizard
 cancel_wizard if cloud_address_conf.cancel
 general_conf["cloud_address"] = cloud_address_conf.conf[:cloud_address]
-general_conf["cdomain"] = cloud_address_conf.conf[:cdomain]
 
 # Confirm
 text = <<EOF
@@ -179,7 +178,6 @@ unless general_conf["network"]["dns"].nil?
 end
 
 text += "\n- Cloud address: #{general_conf["cloud_address"]}\n"
-text += "- Cloud Domain: #{general_conf["cdomain"]}\n"
 
 text += "\nPlease, is this configuration ok?\n \n"
 
