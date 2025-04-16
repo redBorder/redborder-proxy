@@ -46,8 +46,14 @@ install -D -m 0644 resources/systemd/rb-init-conf.service %{buildroot}/usr/lib/s
 install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redborder/lib/dhclient-enter-hooks
 
 %pre
+if [ -f /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec ]; then
+    cp -p /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec.backup
+fi
 
 %post
+if [ -f /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec ]; then
+    rm -f /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec
+fi
 case "$1" in
   1)
     # This is an initial install.
@@ -74,6 +80,11 @@ esac
 echo "kernel.printk = 1 4 1 7" > /usr/lib/sysctl.d/99-redborder-printk.conf
 /sbin/sysctl --system > /dev/null 2>&1
 
+%postun
+if [ -f /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec.backup ]; then
+    mv /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec.backup /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.gemspec
+fi
+
 %posttrans
 update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "java"|head -n 1)
 
@@ -94,6 +105,8 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
+* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com> - 
+- Chef-workstation update handling conflict with embedded openssl gemspec
 * Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com> - 0.5.0-1
 - Add domain configuration update during package upgrade for http2k
 * Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
