@@ -84,7 +84,7 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
-* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com> - 1.0.0-1
+* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com> - 
 - Chef-workstation update handling conflict with embedded openssl gemspec
 * Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
 - Add cgroups
