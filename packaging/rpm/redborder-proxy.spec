@@ -97,9 +97,9 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
-* Tue Apr 22 2025 Rafael Gómez <rgomez@redborder.com> - 0.6.1
+* Tue Apr 22 2025 Rafael Gómez <rgomez@redborder.com> - 0.6.1-1
 - Remove openssl gemspec file handling from chef-workstation package
-* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com> - 0.6.0
+* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com> - 0.6.0-1
 - Chef-workstation update handling conflict with embedded openssl gemspec
 * Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com> - 0.5.0-1
 - Add domain configuration update during package upgrade for http2k
