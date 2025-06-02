@@ -71,9 +71,13 @@ case "$1" in
 
     NEW_DOMAIN_HTTP2K="http2k.${SUFFIX}"
     NEW_DOMAIN_ERCHEF="erchef.service.${SUFFIX}"
+    NEW_DOMAIN_WEBUI="webui.service.${SUFFIX}"
+    NEW_DOMAIN_S3="s3.service.${SUFFIX}"
 
     sed -i -E "s/\bhttp2k\.service\b/${NEW_DOMAIN_HTTP2K}/" /etc/hosts
     sed -i -E "s/\berchef\.service\b/${NEW_DOMAIN_ERCHEF}/" /etc/hosts
+    sed -i -E "s/\bwebui\.service\b/${NEW_DOMAIN_WEBUI}/" /etc/hosts
+    sed -i -E "s/\bs3\.service\b/${NEW_DOMAIN_S3}/" /etc/hosts
   ;;
 esac
 
