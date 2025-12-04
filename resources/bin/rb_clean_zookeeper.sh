@@ -5,7 +5,6 @@ consumersdata=0
 startservices=1
 kafkaclean=0
 ds_services_stop="chef-client f2k n2klocd redborder-monitor"
-ds_services_start="zookeeper kafka k2http f2k n2klocd freeradius redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
 
 function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
@@ -30,6 +29,31 @@ function clean_consumers() {
     /usr/bin/zkCli.sh -server localhost:2181 delete $path/$child 2>/dev/null | grep '^\[.*\]$'
   done
 }
+
+function start_services() {
+  local ds_services_start="zookeeper kafka k2http f2k n2klocd redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
+
+  # Cache available services
+  local systemctl_services=$(systemctl list-unit-files --no-pager --no-legend | awk '{print $1}')
+  local rbcli_services=$(rbcli service list | awk '{print $1}')
+
+  for service_name in $ds_services_start; do
+    if echo "$systemctl_services" | grep -qw "^$service_name"; then
+      # Try to start the service
+      if systemctl start "$service_name"; then
+        echo "Service '$service_name' started successfully."
+      else
+        echo "Failed to start '$service_name'. Please check the service logs."
+      fi
+    elif echo "$rbcli_services" | grep -qw "^$service_name"; then
+      echo "Info: Service '$service_name' exists in rbcli but is not enabled in systemctl. Please enable it first."
+    else
+      echo "Error: Service '$service_name' not found in systemctl or rbcli."
+    fi
+  done
+}
+
+
 
 while getopts "fydschlk" name
 do
@@ -76,6 +100,6 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   fi
 
   if [ $startservices -eq 1 ]; then
-    systemctl start $ds_services_start
+    start_services
   fi
 fi
