@@ -5,7 +5,7 @@ consumersdata=0
 startservices=1
 kafkaclean=0
 ds_services_stop="chef-client f2k n2klocd redborder-monitor"
-ds_services_start="zookeeper kafka k2http f2k rb-sociald rb-snmp nmspd n2klocd freeradius redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
+ds_services_start="zookeeper kafka k2http f2k n2klocd freeradius redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
 
 function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
