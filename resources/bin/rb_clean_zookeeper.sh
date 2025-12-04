@@ -7,12 +7,11 @@ kafkaclean=0
 ds_services_stop="chef-client f2k n2klocd redborder-monitor"
 ds_services_start="zookeeper kafka k2http f2k rb-sociald rb-snmp nmspd n2klocd freeradius redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
 
-# Deprecated services: social, rb-snmp, nmspd
 function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
   echo " -h -> print this help"
   echo " -l -> do not start services at the end"
-  echo " -c -> clean kafka consumers data
+  echo " -c -> clean kafka consumers data in zookeeper"
   echo " -k -> clean kafka information too"
   echo " -f -> do not ask"
   exit 0
