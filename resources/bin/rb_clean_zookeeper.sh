@@ -17,6 +17,20 @@ function usage() {
   exit 0
 }
 
+function clean_consumers() {
+  local path="/consumers"
+  response=$(/usr/bin/zkCli.sh -server localhost:2181 ls /consumers 2>/dev/null | grep '^\[.*\]$')
+
+  # Remove brackets, split by comma, and trim whitespace
+  IFS=',' read -ra children <<< "${response#[}"
+  for child in "${children[@]}"; do
+    child="${child%]}"
+    child="$(echo "$child" | xargs)"  # Trim whitespace
+    [[ -n "$child" ]] && echo "Deleting DELETE: $path/$child"
+    /usr/bin/zkCli.sh -server localhost:2181 delete $path/$child 2>/dev/null | grep '^\[.*\]$'
+  done
+}
+
 while getopts "fydschlk" name
 do
   case $name in
@@ -58,7 +72,7 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   else
     systemctl start zookeeper
     e_title "Deleting specific zookeeper data"
-    [ $consumersdata -eq 1 ] && echo "rmr /consumers" | zkcli &>/dev/null
+    clean_consumers
   fi
 
   if [ $startservices -eq 1 ]; then
