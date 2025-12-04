@@ -26,7 +26,7 @@ function clean_consumers() {
   for child in "${children[@]}"; do
     child="${child%]}"
     child="$(echo "$child" | xargs)"  # Trim whitespace
-    [[ -n "$child" ]] && echo "Deleting DELETE: $path/$child"
+    [[ -n "$child" ]] && echo "Deleting: $path/$child"
     /usr/bin/zkCli.sh -server localhost:2181 delete $path/$child 2>/dev/null | grep '^\[.*\]$'
   done
 }
