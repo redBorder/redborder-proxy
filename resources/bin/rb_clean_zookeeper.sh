@@ -7,10 +7,12 @@ kafkaclean=0
 ds_services_stop="chef-client f2k n2klocd redborder-monitor"
 ds_services_start="zookeeper kafka k2http f2k rb-sociald rb-snmp nmspd n2klocd freeradius redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
 
+# Deprecated services: social, rb-snmp, nmspd
 function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
   echo " -h -> print this help"
   echo " -l -> do not start services at the end"
+  echo " -c -> clean kafka consumers data
   echo " -k -> clean kafka information too"
   echo " -f -> do not ask"
   exit 0
@@ -20,6 +22,7 @@ while getopts "fdschlk" name
 do
   case $name in
     f) force=1;;
+    y) force=1;;
     c) consumersdata=1;;
     l) startservices=0;;
     k) kafkaclean=1;;
@@ -51,12 +54,12 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
       sleep 5
       systemctl start kafka
       sleep 5
-      rb_create_topics.sh | grep -v 'Due to limitations in metric names'
+      /usr/lib/redborder/bin/rb_create_topics | grep -v 'Due to limitations in metric names'
     fi
   else
     systemctl start zookeeper
     e_title "Deleting specific zookeeper data"
-    [ $consumersdata -eq 1 ] && echo "rmr /consumers" | rb_zkcli &>/dev/null
+    [ $consumersdata -eq 1 ] && echo "rmr /consumers" | zkcli &>/dev/null
   fi
 
   if [ $startservices -eq 1 ]; then
