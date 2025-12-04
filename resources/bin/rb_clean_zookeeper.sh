@@ -17,7 +17,7 @@ function usage() {
   exit 0
 }
 
-while getopts "fdschlk" name
+while getopts "fydschlk" name
 do
   case $name in
     f) force=1;;
