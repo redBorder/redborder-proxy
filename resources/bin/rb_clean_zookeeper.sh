@@ -53,8 +53,6 @@ function start_services() {
   done
 }
 
-
-
 while getopts "fydschlk" name
 do
   case $name in
