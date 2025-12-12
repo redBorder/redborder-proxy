@@ -5,7 +5,6 @@ consumersdata=0
 startservices=1
 kafkaclean=0
 ds_services_stop="chef-client f2k n2klocd redborder-monitor"
-ds_services_start="zookeeper kafka k2http f2k rb-sociald rb-snmp nmspd n2klocd freeradius redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
 
 function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
@@ -16,7 +15,45 @@ function usage() {
   exit 0
 }
 
-while getopts "fdschlk" name
+function clean_consumers() {
+  local path="/consumers"
+  response=$(/usr/bin/zkCli.sh -server localhost:2181 ls /consumers 2>/dev/null | grep '^\[.*\]$')
+
+  # Remove brackets, split by comma, and trim whitespace
+  IFS=',' read -ra children <<< "${response#[}"
+  for child in "${children[@]}"; do
+    child="${child%]}"
+    child="$(echo "$child" | xargs)"  # Trim whitespace
+    [[ -n "$child" ]] && echo "Deleting: $path/$child"
+    /usr/bin/zkCli.sh -server localhost:2181 delete $path/$child 2>/dev/null | grep '^\[.*\]$'
+  done
+}
+
+function start_services() {
+  local ds_services_start="zookeeper kafka k2http f2k n2klocd redborder-monitor chef-client sfacctd logstash redborder-ale redborder-scanner"
+
+  # Cache available services
+  local systemctl_services=$(systemctl list-unit-files --no-pager --no-legend | awk '{print $1}')
+  local rbcli_services=$(rbcli service list | awk '{print $1}')
+
+  for service_name in $ds_services_start; do
+    if echo "$systemctl_services" | grep -qw "^$service_name"; then
+      # Try to start the service
+      if systemctl start "$service_name"; then
+        echo "Service '$service_name' started successfully."
+      else
+        echo "Failed to start '$service_name'. Please check the service logs."
+      fi
+    elif echo "$rbcli_services" | grep -qw "^$service_name"; then
+      echo "Info: Service '$service_name' exists in rbcli but is not enabled in systemctl. Please enable it first."
+    else
+      echo "Error: Service '$service_name' not found in systemctl or rbcli."
+    fi
+  done
+}
+
+while getopts "fydschlk" name
+
 do
   case $name in
     f) force=1;;
@@ -56,10 +93,10 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   else
     systemctl start zookeeper
     e_title "Deleting specific zookeeper data"
-    [ $consumersdata -eq 1 ] && echo "rmr /consumers" | rb_zkcli &>/dev/null
+    clean_consumers
   fi
 
   if [ $startservices -eq 1 ]; then
-    systemctl start $ds_services_start
+    start_services
   fi
 fi
