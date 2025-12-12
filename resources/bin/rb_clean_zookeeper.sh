@@ -10,7 +10,6 @@ function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
   echo " -h -> print this help"
   echo " -l -> do not start services at the end"
-  echo " -c -> clean kafka consumers data in zookeeper"
   echo " -k -> clean kafka information too"
   echo " -f -> do not ask"
   exit 0
@@ -54,10 +53,10 @@ function start_services() {
 }
 
 while getopts "fydschlk" name
+
 do
   case $name in
     f) force=1;;
-    y) force=1;;
     c) consumersdata=1;;
     l) startservices=0;;
     k) kafkaclean=1;;
@@ -89,7 +88,7 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
       sleep 5
       systemctl start kafka
       sleep 5
-      /usr/lib/redborder/bin/rb_create_topics | grep -v 'Due to limitations in metric names'
+      rb_create_topics.sh | grep -v 'Due to limitations in metric names'
     fi
   else
     systemctl start zookeeper
