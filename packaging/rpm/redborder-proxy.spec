@@ -15,6 +15,7 @@ Requires: alternatives java-1.8.0-openjdk java-1.8.0-openjdk-devel
 Requires: network-scripts network-scripts-teamd
 Requires: chef-workstation
 Requires: redborder-cgroups
+Requires: ipmitool
 
 %description
 %{summary}
@@ -135,21 +136,32 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
-* Tue Apr 22 2025 Rafael Gómez <rgomez@redborder.com> - 0.6.1-1
+* Wed Jan 14 2026 manegron <manegron@redborder.com>
+- Add ipmitool as require
+
+* Tue Apr 22 2025 Rafael Gómez <rgomez@redborder.com>
 - Remove openssl gemspec file handling from chef-workstation package
-* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com> - 0.6.0-1
+
+* Fri Mar 28 2025 Vicente Mesa, José Navarro <vimesa@redborder.com, jnavarro@redborder.com>
 - Chef-workstation update handling conflict with embedded openssl gemspec
-* Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com> - 0.5.0-1
+
+* Mon Apr 14 2025 Rafael Gómez <rgomez@redborder.com>
 - Add domain configuration update during package upgrade for http2k
-* Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com> - 0.1.0-1
+
+* Thu Dec 14 2023 Miguel Álvarez <malvarez@redborder.com>
 - Add cgroups
-* Tue Nov 21 2023 Vicente Mesa <vimesa@redborder.com> - 0.0.9-1
+
+* Tue Nov 21 2023 Vicente Mesa <vimesa@redborder.com>
 - Add dhclient
-* Tue Nov 14 2023 Miguel Negron <manegron@redborder.com> - 0.0.8-1
+
+* Tue Nov 14 2023 manegron <manegron@redborder.com>
 - add networkscripts
-* Wed Sep 13 2023 Julio Peralta <jperalta@redborder.com> - 0.0.7-1
+
+* Wed Sep 13 2023 Julio Peralta <jperalta@redborder.com>
 - Changed ZK_host, removed IF="," and ".node" inside rb_get_zkinfo.sh
-* Thu Apr 13 2023 Luis Blanco <ljblanco@redborder.com> -
+
+* Thu Apr 13 2023 Luis Blanco <ljblanco@redborder.com>
 - disassociate added
-* Mon Mar 21 2021 Miguel Negron <manegron@redborder.com> - 0.0.1-1
+
+* Mon Mar 21 2021 manegron <manegron@redborder.com>
 - first spec version
