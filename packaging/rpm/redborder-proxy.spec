@@ -75,6 +75,7 @@ case "$1" in
     NEW_DOMAIN_ERCHEF="erchef.service.${SUFFIX}"
     NEW_DOMAIN_WEBUI="webui.${SUFFIX}"
     NEW_DOMAIN_S3="s3.service.${SUFFIX}"
+    NEW_DOMAIN_HUB="redborder-hub.service.${SUFFIX}"
 
     grep -qE '\bhttp2k\.service[[:space:]]' /etc/hosts && \
     sed -i -E "s/\bhttp2k\.service\b/${NEW_DOMAIN_HTTP2K}/" /etc/hosts
@@ -87,6 +88,9 @@ case "$1" in
 
     grep -qE '\bwebui\.service[[:space:]]' /etc/hosts && \
     sed -i -E "s/\bwebui\.service\b/${NEW_DOMAIN_WEBUI}/" /etc/hosts
+
+    grep -qE '\bredborder-hub\.service[[:space:]]' /etc/hosts && \
+    sed -i -E "s/\bredborder-hub\.service\b/${NEW_DOMAIN_HUB}/" /etc/hosts
 
     CHEF_FILES=(
       "/etc/chef/client.rb.default"
