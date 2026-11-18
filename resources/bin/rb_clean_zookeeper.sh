@@ -4,7 +4,7 @@ force=0
 consumersdata=0
 startservices=1
 kafkaclean=0
-ds_services_stop="chef-client netflow2kafka sflow2kafka n2klocd redborder-monitor"
+ds_services_stop="chef-client redborder-netflow2kafka redborder-sflow2kafka n2klocd redborder-monitor"
 
 function usage() {
   echo "rb_clean_zookeeper.sh [-h][-f][-c][-l][-k]"
@@ -30,7 +30,7 @@ function clean_consumers() {
 }
 
 function start_services() {
-  local ds_services_start="zookeeper kafka k2http netflow2kafka sflow2kafka n2klocd redborder-monitor chef-client logstash redborder-ale redborder-scanner"
+  local ds_services_start="zookeeper kafka k2http redborder-netflow2kafka redborder-sflow2kafka n2klocd redborder-monitor chef-client logstash redborder-ale redborder-scanner"
 
   # Cache available services
   local systemctl_services=$(systemctl list-unit-files --no-pager --no-legend | awk '{print $1}')
