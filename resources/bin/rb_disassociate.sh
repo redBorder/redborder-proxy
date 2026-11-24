@@ -1,7 +1,7 @@
 
 FORCE=0
 RET=0
-DELETE="/etc/chef/client.pem /etc/motd /etc/sudoers.d/redBorder /etc/n2klocd/config.json /etc/nprobe/config.json /etc/sysconfig/iptables /etc/sysconfig/nprobe /etc/chef/role.json /etc/chef/role-once.json /etc/raddb/clients.conf /etc/raddb/kafka_log.conf /etc/raddb/radiusd.conf /etc/rb-social/config.yml /etc/mosquitto/conf.d/ /etc/mosquitto/mosquitto.conf /etc/chef/rb-register.db /tmp/kafka /tmp/zookeeper /var/log/rb-register/finish.log /etc/sysconfig/arpwatch /etc/pmacctd.conf /etc/rb-exporter/* /etc/logstash/pipelines.yml /share/bulkstats.tar.gz /var/rb-scanner-request/conf/"
+DELETE="/etc/chef/client.pem /etc/motd /etc/sudoers.d/redBorder /etc/n2klocd/config.json /etc/redborder-netflow2kafka/config.json /etc/redborder-sflow2kafka/config.json /etc/nprobe/config.json /etc/sysconfig/iptables /etc/sysconfig/nprobe /etc/chef/role.json /etc/chef/role-once.json /etc/raddb/clients.conf /etc/raddb/kafka_log.conf /etc/raddb/radiusd.conf /etc/rb-social/config.yml /etc/mosquitto/conf.d/ /etc/mosquitto/mosquitto.conf /etc/chef/rb-register.db /tmp/kafka /tmp/zookeeper /var/log/rb-register/finish.log /etc/sysconfig/arpwatch /etc/pmacctd.conf /etc/redborder-flow-agent/* /etc/logstash/pipelines.yml /share/bulkstats.tar.gz /var/rb-scanner-request/conf/"
 
 
 source /usr/lib/redborder/lib/rb_functions.sh
@@ -32,7 +32,7 @@ fi
 if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   e_title "Stopping services"
   /usr/lib/redborder/bin/rb_clean_zookeeper.sh -kfl
-  ds_services_stop="chef-client f2k n2klocd redborder-monitor rb-register" #rb-register should be restarted on rb_setup_wizard
+  ds_services_stop="chef-client redborder-netflow2kafka redborder-sflow2kafka n2klocd redborder-monitor rb-register" #rb-register should be restarted on rb_setup_wizard
   systemctl stop $ds_services_stop
 
   e_title "Deleting files"
