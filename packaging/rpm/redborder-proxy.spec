@@ -10,10 +10,9 @@ License: AGPL 3.0
 URL: https://github.com/redBorder/redborder-proxy
 Source0: %{name}-%{version}.tar.gz
 
-Requires: bash dialog dmidecode rsync nc telnet redborder-common redborder-chef-client redborder-rubyrvm redborder-cli rb-register dhclient
+Requires: bash dialog dmidecode rsync nc telnet redborder-common redborder-cinc-client redborder-rubyrvm redborder-cli rb-register dhclient
 Requires: alternatives java-1.8.0-openjdk java-1.8.0-openjdk-devel
 Requires: network-scripts network-scripts-teamd
-Requires: chef-workstation
 Requires: ipmitool
 
 %description
@@ -48,9 +47,6 @@ install -D -m 0755 resources/lib/dhclient-enter-hooks %{buildroot}/usr/lib/redbo
 %pre
 
 %post
-if ls /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.* 1> /dev/null 2>&1; then
-  rm -f /opt/chef-workstation/embedded/lib/ruby/gems/3.1.0/specifications/default/openssl-3.0.1.*
-fi
 MARKER_FILE="/var/lib/redborder/upgrade_etc_hosts_patch_done"
 case "$1" in
   1)
@@ -135,6 +131,9 @@ update-alternatives --set java $(find /usr/lib/jvm/*java-1.8.0-openjdk* -name "j
 %doc
 
 %changelog
+* Wed Nov 25 2026 Miguel Negrón <manegron@redborder.com>
+- Migrate from Chef to Cinc: require redborder-cinc-client instead of redborder-chef-client and chef-workstation
+
 * Wed Aug 5 2026 Nils Verschaeve <nverschaeve@redborder.com> - 1.0.0
 - Remove redborder-cgroups
 
