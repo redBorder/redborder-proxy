@@ -48,7 +48,7 @@ if [ "x$VAR" == "xy" -o "x$VAR" == "xY" ]; then
   cat /proc/sys/kernel/random/uuid > /etc/rb-uuid
 
   e_title "Generating new nmsp certs"
-  /usr/lib/redborder/bin/rb_clean_nmsp.sh -f
+  /usr/lib/redborder/bin/rb_create_local_nmsp_keys.sh -f
 
   e_title "Starting registration daemons"
   rm /etc/sysconfig/rb-register
