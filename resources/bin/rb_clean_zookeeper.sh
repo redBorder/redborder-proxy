@@ -30,7 +30,7 @@ function clean_consumers() {
 }
 
 function start_services() {
-  local ds_services_start="zookeeper kafka k2http redborder-netflow2kafka redborder-sflow2kafka n2klocd redborder-monitor chef-client logstash redborder-ale redborder-scanner"
+  local ds_services_start="zookeeper kafka k2http redborder-netflow2kafka redborder-sflow2kafka n2klocd redborder-monitor chef-client redborder-vortex redborder-ale redborder-scanner"
 
   # Cache available services
   local systemctl_services=$(systemctl list-unit-files --no-pager --no-legend | awk '{print $1}')
